@@ -1,5 +1,10 @@
-import { Application } from './core/application';
+import { Application } from './core';
 
-Application.init();
+(async () => {
+  await Application.init();
 
-Application.run();
+  Application.run();
+})().catch((err) => {
+  console.error('Unexpected exception', err);
+  process.exit(-1);
+});

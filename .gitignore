@@ -105,3 +105,6 @@ dist
 
 # VSCode workspace files
 .vscode
+
+# Local configuration
+config/local*.yaml
