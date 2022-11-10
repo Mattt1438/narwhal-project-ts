@@ -1,15 +1,19 @@
 import { IWsStream } from '@binance/connector';
-import { WebSocketConnector } from '../connector';
+import { Connector } from './connector';
 
-export abstract class Stream<T> {
+export abstract class Stream<T = unknown> {
   protected stream?: IWsStream;
+
+  protected get connection() {
+    return Connector.client;
+  }
 
   public abstract listen(): void;
 
   public dispose(): void {
     if (!this.stream) return;
 
-    WebSocketConnector.client.unsubscribe(this.stream);
+    Connector.client.unsubscribe(this.stream);
   }
 
   protected parse(dataStr: string): T | undefined {

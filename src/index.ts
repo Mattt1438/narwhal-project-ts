@@ -1,7 +1,8 @@
 import { Application } from './core';
+import { TickerStream } from './ticker';
 
 (async () => {
-  await Application.init();
+  await Application.init([TickerStream]);
 
   Application.run();
 })().catch((err) => {

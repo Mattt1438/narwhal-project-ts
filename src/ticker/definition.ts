@@ -1,7 +1,4 @@
-import { WebSocketConnector } from '../connector';
-import { Stream } from '../stream';
-
-interface IResponse {
+export interface IResponse {
   /**
    * @description Best ask price
    * @example '20890.56000000'
@@ -79,7 +76,7 @@ interface IResponse {
    * @description Statistics open time
    * @example 1666991714217
    */
-  O: 0;
+  O: number;
   /**
    * @description Price change
    * @example '225.84000000'
@@ -104,7 +101,7 @@ interface IResponse {
    * @description Symbol
    * @example 'BTCUSDT'
    */
-  s: string; // Symbol
+  s: string;
   /**
    * @description Total traded base asset volume
    * @example '248427.84927000'
@@ -122,17 +119,8 @@ interface IResponse {
   x: string;
 }
 
-export class Ticker extends Stream<IResponse[]> {
-  public listen(): void {
-    this.stream = WebSocketConnector.client.tickerWS(null, {
-      message: this.onMessage.bind(this),
-    });
-  }
-
-  private onMessage(dataStr: string): void {
-    const data = this.parse(dataStr);
-    if (!data) return;
-
-    console.log(data[0].s, data[0].c);
-  }
+export interface IPersistentData {
+  timestamp: Date;
+  symbol: string;
+  ticker: string;
 }
