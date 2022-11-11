@@ -4,6 +4,8 @@
 
 This application needs:
 
+- Node.js version (min v18.12)
+- npm (min v8.19)
 - a PostgreSQL database
 
 ### Database
@@ -36,7 +38,11 @@ database:
 
 ## Running
 
-How to run the app
+### Before running
+
+You have to install all dependancies using `npm i`
+
+### How to start the application
 
 - `npm start`: creates a process and runs the application. You _must_ build the application before with `npm run build`
 - using VSCode launch command `Launch Program`: console outputs will appear in the `DEBUG CONSOLE` of VSCode. You _must_ build the application before with `npm run build`
