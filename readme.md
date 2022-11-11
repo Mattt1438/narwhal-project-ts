@@ -4,49 +4,20 @@
 
 This application needs:
 
-- a SQLServer database
+- a PostgreSQL database
 
 ### Database
 
 For testing purpose, you can use a local database using Docker.
 
-#### Container creation:
-
 ```
-$ docker run --name mssql-server \
--e 'ACCEPT_EULA=Y' \
--e 'SA_PASSWORD=<SA_PASSWORD>' \
--p 1433:1433 \
--d mcr.microsoft.com/mssql/server
+docker run --name postgres-server \
+-e POSTGRES_USER=<USER_NAME> \
+-e POSTGRES_PASSWORD=<USER_PASSWORD> \
+-e POSTGRES_DB=<DB_NAME> \
+-p 5432:5432 \
+-d postgres
 ```
-
-#### Database initialization
-
-```
-$ docker exec -it mssql-server /opt/mssql-tools/bin/sqlcmd \
--U SA \
--P "<SA_PASSWORD>" \
--Q "
--- Database creation
-USE master;
-CREATE DATABASE <DB_NAME>;
-GO
-
--- Login/User creation
-USE <DB_NAME>;
-CREATE LOGIN <LOGIN_NAME> WITH PASSWORD = '<LOGIN_PASSWORD>';
-GO
-
-EXEC sp_changedbowner '<LOGIN_NAME>';
-GO
-"
-```
-
-You have to replace:
-
-- `<SA_PASSWORD>`: System Administrator password
-- `<DB_NAME>` AND `<LOGIN_NAME>`: it is recommended to use the same value as SQLServer objects are easily identfied and recognized
-- `<LOGIN_PASSWORD>`: Password complexity policies can be found [here](https://learn.microsoft.com/en-us/sql/relational-databases/security/password-policy#password-complexity)
 
 ## Configuration
 
@@ -57,9 +28,9 @@ E.g.
 ```
 database:
   host: localhost
-  port: 1433
-  user: <LOGIN_NAME>
-  password: <LOGIN_PASSWORD>
+  port: 5432
+  user: <USER_NAME>
+  password: <USER_PASSWORD>
   database: <DB_NAME>
 ```
 

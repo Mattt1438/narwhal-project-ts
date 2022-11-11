@@ -12,7 +12,7 @@ export class Client {
     const { database: connection } = Config;
 
     this._knex = knex({
-      client: 'mssql',
+      client: 'pg',
       connection,
       migrations: {
         directory: `${__dirname}/migrations`,

@@ -45,6 +45,6 @@
     "@binance/connector": "2.0.0-rc.3",
     "config": "3.3.8",
     "knex": "2.3.0",
-    "tedious": "15.1.1"
+    "pg": "8.8.0"
   }
 }

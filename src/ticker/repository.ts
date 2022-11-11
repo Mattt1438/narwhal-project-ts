@@ -9,7 +9,11 @@ export class Repository extends AbstractRepository<IResponse, IPersistentData> {
   public insertBulk(datas: IResponse[]): Promise<void> {
     const persistedDatas = datas.map(this.map.bind(this));
 
-    return this.queryBuilder.insert(persistedDatas).onConflict().merge().then();
+    return this.queryBuilder
+      .insert(persistedDatas)
+      .onConflict()
+      .ignore()
+      .then();
   }
 
   protected map({ E, s, ...rest }: IResponse): IPersistentData {
