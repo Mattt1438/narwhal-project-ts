@@ -61,7 +61,7 @@ export interface IResponse {
    * @description Last trade Id
    * @example 2054093733
    */
-  L: number; //
+  L: number;
   /**
    * @description Total number of trades
    * @example 6074471
@@ -119,8 +119,12 @@ export interface IResponse {
   x: string;
 }
 
-export interface IPersistentData {
-  timestamp: Date;
-  symbol: string;
-  ticker: string;
+export interface IHistoryRow {
+  time: Date;
+  symbol_id: number;
+  last_price: number;
+  high_price: number;
+  low_price: number;
+  open_price: number;
+  asset_volume: number;
 }

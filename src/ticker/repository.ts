@@ -1,13 +1,14 @@
 import { AbstractRepository } from '../database';
-import { IPersistentData, IResponse } from './definition';
+import { SymbolService } from '../symbol';
+import { IHistoryRow, IResponse } from './definition';
 
-export class Repository extends AbstractRepository<IResponse, IPersistentData> {
+export class Repository extends AbstractRepository<IResponse, IHistoryRow> {
   public constructor() {
     super('history');
   }
 
-  public insertBulk(datas: IResponse[]): Promise<void> {
-    const persistedDatas = datas.map(this.map.bind(this));
+  public async insertBulk(datas: IResponse[]): Promise<void> {
+    const persistedDatas = await Promise.all(datas.map(this.map.bind(this)));
 
     return this.queryBuilder
       .insert(persistedDatas)
@@ -16,11 +17,16 @@ export class Repository extends AbstractRepository<IResponse, IPersistentData> {
       .then();
   }
 
-  protected map({ E, s, ...rest }: IResponse): IPersistentData {
+  protected async map(data: IResponse): Promise<IHistoryRow> {
+    const symbol = await SymbolService.getSymbolByName(data.s);
     return {
-      timestamp: new Date(E),
-      symbol: s,
-      ticker: JSON.stringify(rest),
+      time: new Date(Math.round(data.E / 1000) * 1000),
+      symbol_id: symbol.id,
+      last_price: Number(data.c),
+      high_price: Number(data.h),
+      low_price: Number(data.l),
+      open_price: Number(data.o),
+      asset_volume: Number(data.q),
     };
   }
 }

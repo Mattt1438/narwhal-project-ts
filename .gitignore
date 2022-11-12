@@ -107,4 +107,6 @@ dist
 .vscode
 
 # Local configuration
-config/local*.yaml
+config/local*
+
+temp

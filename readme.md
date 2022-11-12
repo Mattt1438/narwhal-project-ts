@@ -6,11 +6,12 @@ This application needs:
 
 - Node.js version (min v18.12)
 - npm (min v8.19)
-- a PostgreSQL database
+- a PostgreSQL database with [TimescaleDB](https://docs.timescale.com) extension
 
 ### Database
 
-For testing purpose, you can use a local database using Docker.
+For testing purpose, you can use a local database using Docker.\
+Since the data volume is a huge concern, we use [Hypertables](https://docs.timescale.com/getting-started/latest/create-hypertable/) and [compression](https://docs.timescale.com/getting-started/latest/compress-data/) of TimescaleDB extension for PostgreSQL database.
 
 ```
 docker run --name postgres-server \
@@ -18,7 +19,8 @@ docker run --name postgres-server \
 -e POSTGRES_PASSWORD=<USER_PASSWORD> \
 -e POSTGRES_DB=<DB_NAME> \
 -p 5432:5432 \
--d postgres
+-v <LOCAL_ABSOLUTE_PATH>:/home/postgres/pgdata/data \
+-d timescale/timescaledb-ha:pg14-latest
 ```
 
 ## Configuration
