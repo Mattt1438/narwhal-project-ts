@@ -4,3 +4,7 @@ database:
   user: 
   password: 
   database: 
+
+binance:
+  ws:
+    url: wss://stream.binance.com:443

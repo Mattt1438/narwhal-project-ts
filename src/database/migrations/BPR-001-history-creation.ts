@@ -3,7 +3,7 @@ import { TMigrationFn } from '../definitions';
 
 export const up: TMigrationFn = async (conn: Knex) => {
   await conn.schema.createTable('symbol', (table) => {
-    table.specificType('id', 'smallserial').primary();
+    table.increments('id').primary();
     table.string('name', 16).unique().notNullable();
   });
 

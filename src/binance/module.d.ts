@@ -1,5 +1,7 @@
+// import * as WebSocketClient from 'ws';
 // TODO remove when types will be available https://github.com/binance/binance-connector-node/pull/72
 declare module '@binance/connector' {
+  import WebSocketClient from 'ws';
   interface ISpotOptions {
     /** Use it only for REST API */
     baseURL?: string;
@@ -11,13 +13,17 @@ declare module '@binance/connector' {
   interface IWsCallbacks {
     open?: () => void;
     close?: () => void;
+    error?: () => void;
     /**
      * @param data JSON formatted string
      */
     message?: (data: string) => void;
   }
 
-  interface IWsStream {}
+  interface IWsRef {
+    closeInitiated: boolean;
+    ws: WebSocketClient;
+  }
 
   class Spot {
     constructor(
@@ -26,11 +32,8 @@ declare module '@binance/connector' {
       options: ISpotOptions = {}
     );
 
-    public tickerWS: (
-      symbol: string | null,
-      callbacks: IWsCallbacks
-    ) => IWsStreams;
+    public subscribe(url: string, callbacks: IWsCallbacks): IWsRef;
 
-    public unsubscribe(stream: IWsStream): void;
+    public unsubscribe(stream: IWsRef): void;
   }
 }

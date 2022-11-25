@@ -1,10 +1,12 @@
 import { Application } from './core';
 import { TickerStream } from './ticker';
 
-(async () => {
-  await Application.init([TickerStream]);
+const app = new Application([new TickerStream()]);
 
-  Application.run();
+(async () => {
+  await app.init();
+
+  app.run();
 })().catch((err) => {
   console.error('Unexpected exception', err);
   process.exit(-1);

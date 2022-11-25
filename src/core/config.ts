@@ -11,6 +11,14 @@ export class Config {
     };
   }
 
+  public static get binance() {
+    return {
+      ws: {
+        url: this.readConfigKey('binance.ws.url'),
+      },
+    };
+  }
+
   private static readConfigKey<T = string>(key: string): T | never {
     if (!NodeConfig.has(key)) {
       throw new Error(`Config key "${key}" is missing`);

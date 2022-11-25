@@ -1,12 +1,10 @@
-import { BinanceClient, BinanceStream } from '../binance';
+import { BinanceStream } from '../binance';
 import { DbClient } from '../database';
 
 export class Application {
-  private static binanceClient?: BinanceClient;
+  constructor(private streams: BinanceStream[]) {}
 
-  public static async init(
-    streamCtors: (new () => BinanceStream)[],
-  ): Promise<void> {
+  public async init(): Promise<void> {
     // Catch Ctrl+C to kill the process
     process.on('SIGINT', () => {
       this.dispose();
@@ -17,18 +15,13 @@ export class Application {
     process.stdin.resume();
 
     await DbClient.init();
-    this.binanceClient = new BinanceClient(
-      streamCtors.map((ctor) => new ctor()),
-    );
   }
 
-  public static run(): void {
-    this.binanceClient?.startListening();
+  public run(): void {
+    this.streams.forEach((stream) => stream.listen());
   }
 
-  public static dispose(): void {
-    this.binanceClient?.dispose();
+  public dispose(): void {
+    this.streams.map((stream) => stream.dispose());
   }
-
-  private constructor() {}
 }
