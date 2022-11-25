@@ -1,4 +1,5 @@
 import { BinanceStream } from '../binance';
+import { Logger } from '../logger';
 import { IResponse } from './definition';
 import { Repository } from './repository';
 
@@ -9,7 +10,7 @@ export class Stream extends BinanceStream<IResponse[]> {
 
   protected onMessage(datas: IResponse[]): void {
     this.repository.insertBulk(datas).catch((err) => {
-      console.error('Error while saving datas', err);
+      Logger.error('Error while saving datas', err);
     });
   }
 }

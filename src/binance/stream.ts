@@ -2,12 +2,13 @@ import { IWsRef, Spot } from '@binance/connector';
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 import { CloseEvent } from 'ws';
 import { Config } from '../core';
+import { Logger } from '../logger';
 
 /**
  * @param T type of data expected on the stream
  */
 export abstract class Stream<T = unknown> {
-  protected readonly client = new Spot();
+  protected readonly client = new Spot('', '', { logger: Logger });
 
   protected wsRef?: IWsRef;
 
@@ -28,6 +29,11 @@ export abstract class Stream<T = unknown> {
     });
 
     this.wsRef.ws.addEventListener('close', this.onClose.bind(this));
+
+    setInterval(() => {
+      Logger.debug('Sending a PING...');
+      this.wsRef?.ws.ping();
+    }, 5000);
   }
 
   public dispose(): void {
@@ -39,7 +45,7 @@ export abstract class Stream<T = unknown> {
   protected abstract onMessage(data: T): void;
 
   protected onClose({ code, reason }: CloseEvent): void {
-    console.warn(
+    Logger.warn(
       `Event 'close' received with code '${code}' and reason '${reason}'`,
     );
     this.wsRef!.ws.resume();
@@ -49,7 +55,7 @@ export abstract class Stream<T = unknown> {
     try {
       return JSON.parse(dataStr);
     } catch (err) {
-      console.error('Error while parsing a message', err);
+      Logger.error('Error while parsing a message', err);
     }
   }
 }

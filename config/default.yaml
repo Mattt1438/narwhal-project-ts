@@ -8,3 +8,11 @@ database:
 binance:
   ws:
     url: wss://stream.binance.com:443
+
+logger:
+  files:
+    - level: error
+      filename: logs/errors/%DATE%.log
+    - level: info
+      filename: logs/combined/%DATE%.log
+    

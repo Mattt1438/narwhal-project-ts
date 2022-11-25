@@ -8,6 +8,7 @@ declare module '@binance/connector' {
     /** Use it only for WS API */
     wsURL?: string;
     reconnectDelay?: number;
+    logger: object;
   }
 
   interface IWsCallbacks {

@@ -1,19 +1,15 @@
 import { BinanceStream } from '../binance';
 import { DbClient } from '../database';
+import { Logger } from '../logger';
 
 export class Application {
-  constructor(private streams: BinanceStream[]) {}
+  constructor(private streams: BinanceStream[]) {
+    Logger.init().info(
+      `${'='.repeat(5)} APPLICATION STARTED ${'='.repeat(5)} `,
+    );
+  }
 
   public async init(): Promise<void> {
-    // Catch Ctrl+C to kill the process
-    process.on('SIGINT', () => {
-      this.dispose();
-      process.exit();
-    });
-
-    // Prevent the process from exiting
-    process.stdin.resume();
-
     await DbClient.init();
   }
 

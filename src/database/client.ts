@@ -1,5 +1,6 @@
 import { knex, Knex } from 'knex';
 import { Config } from '../core';
+import { Logger } from '../logger';
 
 export class Client {
   private static _knex: Knex;
@@ -19,13 +20,13 @@ export class Client {
       },
     });
 
-    console.debug('Cheking database connection...');
+    Logger.debug('Cheking database connection...');
     const isConnected: true = await this.knex.raw('SELECT 1').then(() => true);
-    console.log('Database connection OK');
+    Logger.info('Database connection OK');
 
-    console.debug('Applying database migrations');
+    Logger.debug('Applying database migrations');
     await this.knex.migrate.latest();
-    console.log('Database migrations OK');
+    Logger.info('Database migrations OK');
 
     return isConnected;
   }
