@@ -45,6 +45,7 @@
   "dependencies": {
     "@binance/connector": "2.0.0-rc.3",
     "config": "3.3.8",
+    "filesize": "10.0.5",
     "js-yaml": "4.1.0",
     "knex": "2.3.0",
     "node-cache": "5.1.2",
