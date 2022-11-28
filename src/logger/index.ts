@@ -15,7 +15,7 @@ export class Logger {
       (config) =>
         new DailyRotateFile({
           ...config,
-          datePattern: 'YYYY-MM-DD-HH',
+          datePattern: 'YYYY-MM-DD',
           zippedArchive: true,
           maxSize: '20m',
           maxFiles: '14d',

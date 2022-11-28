@@ -28,6 +28,17 @@ export abstract class Stream<T = unknown> {
       },
     });
 
+    this.wsRef.ws.removeAllListeners('ping');
+    this.wsRef.ws.on('ping', () => {
+      Logger.debug("Responded PONG to server's PING message");
+      this.wsRef?.ws.ping();
+    });
+
+    this.wsRef.ws.removeAllListeners('pong');
+    this.wsRef.ws.on('pong', () => {
+      Logger.debug('Received PONG from server');
+    });
+
     this.wsRef.ws.addEventListener('close', this.onClose.bind(this));
 
     setInterval(() => {
