@@ -1,4 +1,4 @@
-import NodeCache from 'node-cache';
+import * as NodeCache from 'node-cache';
 import { ISymbol } from './definition';
 import { Repository } from './repository';
 

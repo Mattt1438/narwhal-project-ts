@@ -1,6 +1,7 @@
 import { knex, Knex } from 'knex';
 import { Config } from '../core';
 import { Logger } from '../logger';
+import { WebpackMigrationSource } from './webpackMigrationSource';
 
 export class Client {
   private static _knex: Knex;
@@ -12,11 +13,14 @@ export class Client {
   public static async init(): Promise<true | never> {
     const { database: connection } = Config;
 
+    console.log(require.context('./migrations', false, /\.ts$/).keys());
     this._knex = knex({
       client: 'pg',
       connection,
       migrations: {
-        directory: `${__dirname}/migrations`,
+        migrationSource: new WebpackMigrationSource(
+          require.context('./migrations', false, /\.ts$/)
+        ),
       },
     });
 

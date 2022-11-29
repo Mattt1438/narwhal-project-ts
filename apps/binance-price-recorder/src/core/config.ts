@@ -1,4 +1,4 @@
-import NodeConfig from 'config';
+import * as NodeConfig from 'config';
 
 export class Config {
   public static get database() {
