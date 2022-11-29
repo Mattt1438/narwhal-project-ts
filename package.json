@@ -6,10 +6,13 @@
     "start": "nx serve",
     "build": "nx build",
     "test": "nx test",
-    "lint": "nx lint"
+    "lint": "nx lint",
+    "prepare": "husky install"
   },
   "private": true,
   "devDependencies": {
+    "@commitlint/cli": "17.3.0",
+    "@commitlint/config-conventional": "17.3.0",
     "@nrwl/cli": "15.2.1",
     "@nrwl/eslint-plugin-nx": "15.2.1",
     "@nrwl/jest": "15.2.1",
@@ -26,6 +29,7 @@
     "eslint": "~8.15.0",
     "eslint-config-airbnb-typescript": "17.0.0",
     "eslint-config-prettier": "8.1.0",
+    "husky": "8.0.2",
     "jest": "28.1.1",
     "jest-environment-jsdom": "28.1.1",
     "nx": "15.2.1",
@@ -45,5 +49,11 @@
     "winston": "3.8.2",
     "winston-daily-rotate-file": "4.7.1",
     "ws": "8.11.0"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,json,md}": [
+      "nx affected:lint --parallel --uncommitted",
+      "nx format:write --uncommitted"
+    ]
   }
 }
