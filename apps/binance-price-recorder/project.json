@@ -37,7 +37,8 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/binance-price-recorder/**/*.ts"]
+        "lintFilePatterns": ["apps/binance-price-recorder/**/*.ts"],
+        "fix": true
       }
     },
     "test": {

@@ -13,13 +13,12 @@ export class Client {
   public static async init(): Promise<true | never> {
     const { database: connection } = Config;
 
-    console.log(require.context('./migrations', false, /\.ts$/).keys());
     this._knex = knex({
       client: 'pg',
       connection,
       migrations: {
         migrationSource: new WebpackMigrationSource(
-          require.context('./migrations', false, /\.ts$/)
+          require.context('./migrations', false, /\.ts$/),
         ),
       },
     });

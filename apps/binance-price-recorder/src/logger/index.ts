@@ -20,7 +20,7 @@ export class Logger {
           maxSize: '20m',
           maxFiles: '14d',
           format: format.combine(format.timestamp(), format.json()),
-        })
+        }),
     );
 
     this.logger = createLogger({
@@ -39,7 +39,7 @@ export class Logger {
               }
 
               return `${msg}\n${JSON.stringify(meta, null, 2)}`;
-            })
+            }),
           ),
         }),
       ],

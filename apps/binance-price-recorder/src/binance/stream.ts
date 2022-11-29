@@ -50,7 +50,7 @@ export abstract class Stream<T = unknown> {
   public dispose(): void {
     if (!this.wsRef) return;
 
-    this.client.unsubscribe(this.wsRef!);
+    this.client.unsubscribe(this.wsRef);
   }
 
   protected abstract onMessage(data: T): void;
@@ -59,7 +59,7 @@ export abstract class Stream<T = unknown> {
     Logger.warn(
       `Event 'close' received with code '${code}' and reason '${reason}'`,
     );
-    this.wsRef!.ws.resume();
+    this.wsRef.ws.resume();
   }
 
   protected parse(dataStr: string): T | undefined {
