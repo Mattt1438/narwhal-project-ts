@@ -12,7 +12,8 @@
         "compiler": "tsc",
         "outputPath": "dist/apps/binance-price-recorder",
         "main": "apps/binance-price-recorder/src/main.ts",
-        "tsConfig": "apps/binance-price-recorder/tsconfig.app.json"
+        "tsConfig": "apps/binance-price-recorder/tsconfig.app.json",
+        "generatePackageJson": true
       },
       "configurations": {
         "production": {
@@ -47,6 +48,28 @@
       "options": {
         "jestConfig": "apps/binance-price-recorder/jest.config.ts",
         "passWithNoTests": true
+      }
+    },
+    "container": {
+      "executor": "@nx-tools/nx-container:build",
+      "options": {
+        "engine": "docker",
+        "metadata": {
+          "images": ["narwhal-project-ts/binance-price-recorder"],
+          "load": true,
+          "tags": ["latest"]
+        }
+      }
+    },
+    "deploy": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "nx build",
+          "nx container",
+          "docker save narwhal-project-ts/binance-price-recorder > deploy/binance-price-recorder:latest"
+        ],
+        "parallel": false
       }
     }
   },
