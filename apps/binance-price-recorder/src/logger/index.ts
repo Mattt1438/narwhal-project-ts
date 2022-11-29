@@ -5,7 +5,7 @@ import {
   Logger as WinstonLogger,
 } from 'winston';
 import * as DailyRotateFile from 'winston-daily-rotate-file';
-import { Config } from '../core';
+import { Config } from '../config';
 
 export class Logger {
   private static logger: WinstonLogger;
@@ -20,7 +20,7 @@ export class Logger {
           maxSize: '20m',
           maxFiles: '14d',
           format: format.combine(format.timestamp(), format.json()),
-        }),
+        })
     );
 
     this.logger = createLogger({
@@ -39,7 +39,7 @@ export class Logger {
               }
 
               return `${msg}\n${JSON.stringify(meta, null, 2)}`;
-            }),
+            })
           ),
         }),
       ],

@@ -1,7 +1,7 @@
 import { IWsRef, Spot } from '@binance/connector';
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 import { CloseEvent } from 'ws';
-import { Config } from '../core';
+import { Config } from '../config';
 import { Logger } from '../logger';
 
 /**
@@ -57,7 +57,7 @@ export abstract class Stream<T = unknown> {
 
   protected onClose({ code, reason }: CloseEvent): void {
     Logger.warn(
-      `Event 'close' received with code '${code}' and reason '${reason}'`,
+      `Event 'close' received with code '${code}' and reason '${reason}'`
     );
     this.wsRef.ws.resume();
   }

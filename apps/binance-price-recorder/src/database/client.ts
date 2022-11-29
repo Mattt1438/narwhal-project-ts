@@ -1,5 +1,6 @@
+import 'pg';
 import { knex, Knex } from 'knex';
-import { Config } from '../core';
+import { Config } from '../config';
 import { Logger } from '../logger';
 import { WebpackMigrationSource } from './webpackMigrationSource';
 
@@ -18,7 +19,7 @@ export class Client {
       connection,
       migrations: {
         migrationSource: new WebpackMigrationSource(
-          require.context('./migrations', false, /\.ts$/),
+          require.context('./migrations', false, /\.ts$/)
         ),
       },
     });
