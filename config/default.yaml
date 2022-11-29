@@ -1,9 +1,9 @@
 database:
-  host: 
-  port: 
-  user: 
-  password: 
-  database: 
+  host:
+  port:
+  user:
+  password:
+  database:
 
 binance:
   ws:
@@ -15,4 +15,3 @@ logger:
       filename: logs/errors/%DATE%.log
     - level: info
       filename: logs/combined/%DATE%.log
-    

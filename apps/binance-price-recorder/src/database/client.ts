@@ -1,6 +1,7 @@
 import { knex, Knex } from 'knex';
 import { Config } from '../core';
 import { Logger } from '../logger';
+import { WebpackMigrationSource } from './webpackMigrationSource';
 
 export class Client {
   private static _knex: Knex;
@@ -16,7 +17,9 @@ export class Client {
       client: 'pg',
       connection,
       migrations: {
-        directory: `${__dirname}/migrations`,
+        migrationSource: new WebpackMigrationSource(
+          require.context('./migrations', false, /\.ts$/),
+        ),
       },
     });
 
