@@ -24,15 +24,16 @@
         }
       }
     },
-    "serve": {
-      "executor": "@nrwl/js:node",
+    "debug": {
+      "executor": "@nrwl/node:node",
       "options": {
-        "buildTarget": "binance-price-recorder:build"
-      },
-      "configurations": {
-        "production": {
-          "buildTarget": "binance-price-recorder:build:production"
-        }
+        "buildTarget": "binance-price-recorder:build",
+        "buildTargetOptions": {
+          "sourceMap": true
+        },
+        "inspect": true,
+        "port": 7777,
+        "watch": true
       }
     },
     "lint": {

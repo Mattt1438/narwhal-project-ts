@@ -35,6 +35,10 @@ docker run --name postgres-server \
 
 To run the entire stack locally, you can use `npm start`. All projects will be built and run with their local configurations. You have to install all dependencies with `npm i`.
 
+## Debugging
+
+To debug a sub-project, you can run `[npx ]nx debug --target=<sub-project-name>` and attach a debugger on port `7777`. There is a VSCode debug config in `.vscode/launch.json`
+
 ## Deployment
 
 At this time, the only command line available is `npm run deploy`. It creates a Docker image for each project and exports it into `./deploy` directory.
