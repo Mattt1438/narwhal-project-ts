@@ -69,9 +69,15 @@
         "commands": [
           "nx build",
           "nx build-docker-image",
-          "mkdir -p deploy",
-          "rm -f deploy/binance-price-recorder:latest",
-          "docker save narwhal-project-ts/binance-price-recorder > deploy/binance-price-recorder_latest.tar"
+          { "command": "mkdir -p deploy", "forwardAllArgs": false },
+          {
+            "command": "rm -f deploy/binance-price-recorder:latest",
+            "forwardAllArgs": false
+          },
+          {
+            "command": "docker save narwhal-project-ts/binance-price-recorder > deploy/binance-price-recorder_latest.tar",
+            "forwardAllArgs": false
+          }
         ],
         "parallel": false
       }
