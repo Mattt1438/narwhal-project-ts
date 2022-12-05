@@ -11,8 +11,6 @@ export const up: TMigrationFn = async (conn: Knex) => {
     table.dateTime('time').notNullable();
     table.smallint('symbol_id').notNullable();
     table.decimal('last_price', 20, 8);
-    table.decimal('high_price', 20, 8);
-    table.decimal('low_price', 20, 8);
     table.decimal('open_price', 20, 8);
     table.decimal('asset_volume', 20, 8);
     table.primary(['time', 'symbol_id']);
@@ -25,11 +23,7 @@ export const up: TMigrationFn = async (conn: Knex) => {
     'CREATE INDEX ix_symbol_id_time ON history (symbol_id, time DESC);',
   );
   await conn.raw(
-    "ALTER TABLE history SET ( \
-      timescaledb.compress, \
-      timescaledb.compress_orderby = 'time', \
-      timescaledb.compress_segmentby = 'symbol_id' \
-    );",
+    "ALTER TABLE history SET ( timescaledb.compress, timescaledb.compress_orderby = 'time', timescaledb.compress_segmentby = 'symbol_id');",
   );
   await conn.raw(
     "SELECT add_compression_policy('history', INTERVAL '1 hours');",
