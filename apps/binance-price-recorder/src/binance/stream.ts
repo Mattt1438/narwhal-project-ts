@@ -57,7 +57,7 @@ export abstract class Stream<T = unknown> {
 
   protected onClose({ code, reason }: CloseEvent): void {
     Logger.warn(
-      `Event 'close' received with code '${code}' and reason '${reason}'`
+      `Event 'close' received with code '${code}' and reason '${reason}'`,
     );
     this.wsRef.ws.resume();
   }

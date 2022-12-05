@@ -19,7 +19,7 @@ export class Client {
       connection,
       migrations: {
         migrationSource: new WebpackMigrationSource(
-          require.context('./migrations', false, /\.ts$/)
+          require.context('./migrations', false, /\.ts$/),
         ),
       },
     });
