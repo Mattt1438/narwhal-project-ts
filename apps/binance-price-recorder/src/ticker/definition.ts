@@ -123,8 +123,6 @@ export interface IHistoryRow {
   time: Date;
   symbol_id: number;
   last_price: number;
-  high_price: number;
-  low_price: number;
   open_price: number;
   asset_volume: number;
 }

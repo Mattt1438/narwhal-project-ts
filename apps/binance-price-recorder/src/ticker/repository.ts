@@ -18,15 +18,18 @@ export class Repository extends AbstractRepository<IResponse, IHistoryRow> {
   }
 
   protected async map(data: IResponse): Promise<IHistoryRow> {
+    const roundFn = (valueStr: string, precision: number): number => {
+      const coef = Math.pow(10, precision);
+      return Math.round(Number(valueStr) * coef) / coef;
+    };
     const symbol = await SymbolService.getSymbolByName(data.s);
-    return {
+    const r = {
       time: new Date(Math.round(data.E / 1000) * 1000),
       symbol_id: symbol.id,
-      last_price: Number(data.c),
-      high_price: Number(data.h),
-      low_price: Number(data.l),
-      open_price: Number(data.o),
-      asset_volume: Number(data.q),
+      last_price: roundFn(data.c, 8),
+      open_price: roundFn(data.o, 8),
+      asset_volume: roundFn(data.q, 8),
     };
+    return r;
   }
 }
