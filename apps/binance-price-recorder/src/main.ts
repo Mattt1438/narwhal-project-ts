@@ -1,5 +1,5 @@
 import { Application } from './core';
-import { Logger } from './logger';
+import { Logger } from '@narwhal-project-ts/logger';
 import { TickerStream } from './ticker';
 
 const app = new Application([new TickerStream()]);

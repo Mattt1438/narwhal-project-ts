@@ -1,10 +1,11 @@
 import { BinanceStream } from '../binance';
 import { DbClient } from '../database';
-import { Logger } from '../logger';
+import { Logger } from '@narwhal-project-ts/logger';
+import { Config } from '../config';
 
 export class Application {
   constructor(private streams: BinanceStream[]) {
-    Logger.init().info(
+    Logger.init(Config.logger).info(
       `${'='.repeat(5)} APPLICATION STARTED ${'='.repeat(5)} `,
     );
   }

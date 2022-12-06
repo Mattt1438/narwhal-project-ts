@@ -1,5 +1,5 @@
 import { BinanceStream } from '../binance';
-import { Logger } from '../logger';
+import { Logger } from '@narwhal-project-ts/logger';
 import { IResponse } from './definition';
 import { Repository } from './repository';
 import { filesize } from 'filesize';

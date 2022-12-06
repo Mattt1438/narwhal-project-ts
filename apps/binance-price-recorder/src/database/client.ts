@@ -1,7 +1,7 @@
 import 'pg';
 import { knex, Knex } from 'knex';
 import { Config } from '../config';
-import { Logger } from '../logger';
+import { Logger } from '@narwhal-project-ts/logger';
 import { WebpackMigrationSource } from './webpackMigrationSource';
 
 export class Client {

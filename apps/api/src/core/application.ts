@@ -1,13 +1,14 @@
 import { DbClient } from '../database';
-import { Logger } from '../logger';
+import { Logger } from '@narwhal-project-ts/logger';
 import * as express from 'express';
 import { Server, createServer } from 'http';
+import { Config } from '../config';
 
 export class Application {
   private server: Server;
 
   constructor() {
-    Logger.init().info(
+    Logger.init(Config.logger).info(
       `${'='.repeat(5)} APPLICATION STARTED ${'='.repeat(5)} `,
     );
   }

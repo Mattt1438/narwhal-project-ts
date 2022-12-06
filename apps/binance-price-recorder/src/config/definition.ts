@@ -1,3 +1,4 @@
+import { IConfig as ILoggerConfig } from '@narwhal-project-ts/logger';
 export interface IConfig {
   database: {
     host: string;
@@ -13,10 +14,5 @@ export interface IConfig {
     };
   };
 
-  logger: {
-    files: {
-      level: string;
-      filename: string;
-    }[];
-  };
+  logger: ILoggerConfig;
 }

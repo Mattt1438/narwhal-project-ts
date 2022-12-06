@@ -5,16 +5,16 @@ import {
   Logger as WinstonLogger,
 } from 'winston';
 import * as DailyRotateFile from 'winston-daily-rotate-file';
-import { Config } from '../config';
+import { IConfig } from './definition';
 
 export class Logger {
   private static logger: WinstonLogger;
 
-  public static init() {
-    const files: DailyRotateFile[] = Config.logger.files.map(
-      (config) =>
+  public static init(config: IConfig) {
+    const files: DailyRotateFile[] = config.files.map(
+      (defaultConfig) =>
         new DailyRotateFile({
-          ...config,
+          ...defaultConfig,
           datePattern: 'YYYY-MM-DD',
           zippedArchive: true,
           maxSize: '20m',

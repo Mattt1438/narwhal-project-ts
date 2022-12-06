@@ -2,7 +2,7 @@ import { IWsRef, Spot } from '@binance/connector';
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 import { CloseEvent } from 'ws';
 import { Config } from '../config';
-import { Logger } from '../logger';
+import { Logger } from '@narwhal-project-ts/logger';
 
 /**
  * @param T type of data expected on the stream
