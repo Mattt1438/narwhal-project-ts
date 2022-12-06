@@ -13,8 +13,8 @@
         "outputPath": "dist/apps/binance-price-recorder",
         "main": "apps/binance-price-recorder/src/main.ts",
         "tsConfig": "apps/binance-price-recorder/tsconfig.app.json",
-        "generatePackageJson": true,
-        "webpackConfig": "apps/binance-price-recorder/webpack.config.js"
+        "webpackConfig": "apps/binance-price-recorder/webpack.config.js",
+        "generatePackageJson": true
       },
       "configurations": {
         "production": {

@@ -41,7 +41,5 @@ Thumbs.db
 temp
 logs
 
-config/local*.yaml
-
 .nx-container
 deploy
