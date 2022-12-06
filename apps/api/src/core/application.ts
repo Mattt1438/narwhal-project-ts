@@ -1,4 +1,4 @@
-import { DbClient } from '../database';
+import { Client as DbClient } from '@narwhal-project-ts/database';
 import { Logger } from '@narwhal-project-ts/logger';
 import * as express from 'express';
 import { Server, createServer } from 'http';
@@ -14,7 +14,7 @@ export class Application {
   }
 
   public async init(): Promise<void> {
-    await DbClient.init();
+    await DbClient.init(Config.database);
     this.server = createServer(express());
     this.server.on('error', Logger.error);
   }

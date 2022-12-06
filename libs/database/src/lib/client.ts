@@ -1,8 +1,8 @@
 import 'pg';
 import { knex, Knex } from 'knex';
-import { Config } from '../config';
 import { Logger } from '@narwhal-project-ts/logger';
 import { WebpackMigrationSource } from './webpackMigrationSource';
+import { IConfig } from './definitions';
 
 export class Client {
   private static _knex: Knex;
@@ -11,12 +11,10 @@ export class Client {
     return this._knex;
   }
 
-  public static async init(): Promise<true | never> {
-    const { database: connection } = Config;
-
+  public static async init(config: IConfig): Promise<true | never> {
     this._knex = knex({
       client: 'pg',
-      connection,
+      connection: config,
       migrations: {
         migrationSource: new WebpackMigrationSource(
           require.context('./migrations', false, /\.ts$/),

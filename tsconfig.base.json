@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@narwhal-project-ts/database": ["libs/database/src/index.ts"],
       "@narwhal-project-ts/logger": ["libs/logger/src/index.ts"]
     }
   },

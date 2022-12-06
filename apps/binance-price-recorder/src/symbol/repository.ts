@@ -1,4 +1,4 @@
-import { AbstractRepository } from '../database';
+import { AbstractRepository } from '@narwhal-project-ts/database';
 import { ISymbol } from './definition';
 
 export class Repository extends AbstractRepository<string, ISymbol> {

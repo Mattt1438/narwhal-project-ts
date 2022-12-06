@@ -1,4 +1,4 @@
-import { AbstractRepository } from '../database';
+import { AbstractRepository } from '@narwhal-project-ts/database';
 import { SymbolService } from '../symbol';
 import { IHistoryRow, IResponse } from './definition';
 
