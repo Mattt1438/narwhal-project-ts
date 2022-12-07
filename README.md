@@ -6,9 +6,28 @@ TODO
 
 ## Projects
 
-### binance-price-recorder
+### Apps
+
+#### api
+
+A Express server serves routes to fetch datas about prices
+
+#### binance-price-recorder
 
 A service that save some crypto information updates from Binance
+
+### Libs
+
+#### database
+
+- Client
+- Interfaces
+- Abstract classes for Repositories
+- Migration files
+
+#### logger
+
+A single class for logging process of backend apps
 
 ## Requirements
 
@@ -37,7 +56,7 @@ To run the entire stack locally, you can use `npm start`. All projects will be b
 
 ## Debugging
 
-To debug a sub-project, you can run `[npx ]nx debug --target=<sub-project-name>` and attach a debugger on port `7777`. There is a VSCode debug config in `.vscode/launch.json`
+To debug a sub-project, you can run `[npx ]nx debug --project=<sub-project-name>` and attach a debugger on port `7777`. There is a VSCode debug config in `.vscode/launch.json`
 
 ## Deployment
 
