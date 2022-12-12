@@ -3,9 +3,13 @@ import { Logger } from '@narwhal-project-ts/logger';
 import * as express from 'express';
 import { Server, createServer } from 'http';
 import { Config } from '../config';
+import { HistoryModule } from '../symbol';
+import { IModule } from './module';
 
 export class Application {
   private server: Server;
+
+  private modules: (new () => IModule)[] = [HistoryModule];
 
   constructor() {
     Logger.init(Config.logger).info(
@@ -14,9 +18,8 @@ export class Application {
   }
 
   public async init(): Promise<void> {
-    await DbClient.init(Config.database);
-    this.server = createServer(express());
-    this.server.on('error', Logger.error);
+    await this.initDatabse();
+    this.initExpress();
   }
 
   public run(): void {
@@ -31,5 +34,18 @@ export class Application {
       this.server.on('close', resolve);
       this.server.close()?.closeAllConnections();
     });
+  }
+
+  private async initDatabse(): Promise<void> {
+    return DbClient.init(Config.database).then();
+  }
+
+  private initExpress(): void {
+    const app = this.modules
+      .map((ctor) => new ctor())
+      .reduce((acc, { path, router }) => acc.use(path, router), express());
+
+    this.server = createServer(app);
+    this.server.on('error', Logger.error);
   }
 }

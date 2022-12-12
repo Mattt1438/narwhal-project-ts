@@ -1,23 +1,26 @@
 import { Client } from './client';
 import { IHypertableSize } from './definitions';
 
-export abstract class AbstractRepository<I, O> {
+type TObject = { [k: string | number | symbol]: unknown };
+export abstract class AbstractRepository<DTO extends { [key: string]: any }> {
+  protected abstract mapping: { [key in keyof DTO]: string };
+
   protected get queryBuilder() {
     return Client.knex(this.tableName);
   }
 
   public constructor(protected readonly tableName: string) {}
 
-  public upsert(data: I): Promise<O> {
+  public upsert(data: DTO): Promise<DTO | undefined> {
     return this.queryBuilder
-      .insert(this.map.bind(this)(data), '*')
+      .insert(this.toRow(data), '*')
       .onConflict('name')
       .merge()
-      .then((result) => result[0]);
+      .then((result) => this.toDTO(result[0]));
   }
 
-  public insertBulk(datas: I[]): Promise<void> {
-    const persistedDatas = datas.map(this.map.bind(this));
+  public insertBulk(datas: DTO[]): Promise<void> {
+    const persistedDatas = datas.map(this.toRow.bind(this));
 
     return this.queryBuilder.insert(persistedDatas).then();
   }
@@ -39,5 +42,26 @@ export abstract class AbstractRepository<I, O> {
     return this.queryBuilder.count().then((result) => Number(result[0].count));
   }
 
-  protected abstract map(datas: I): unknown;
+  protected toRow(data: DTO): object {
+    return Object.entries<string>(this.mapping).reduce(
+      (obj, [dtoKey, rowKey]) => ({
+        ...obj,
+        [rowKey]: data?.[dtoKey],
+      }),
+      {},
+    );
+  }
+
+  protected toDTO(
+    data: TObject,
+    customMapping: { [key in keyof DTO]?: string } = {},
+  ): DTO {
+    return Object.entries<string>({ ...this.mapping, ...customMapping }).reduce(
+      (obj, [dtoKey, rowKey]) => ({
+        ...obj,
+        [dtoKey]: data?.[rowKey],
+      }),
+      {} as DTO,
+    );
+  }
 }

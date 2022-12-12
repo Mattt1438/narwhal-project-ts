@@ -1,0 +1,58 @@
+openapi: 3.0.3
+info:
+  version: 0.0.1
+  title: Narwhal-API
+  description: API to fetch crypto information
+
+paths:
+  /v1/symbol/{symbol}/history:
+    get:
+      summary: Fetch history information for a given interval
+      parameters:
+        - in: query
+          name: start
+          description: Beginning of the interval
+          schema:
+            $ref: '#/components/schemas/DateTimeString'
+        - in: query
+          name: end
+          description: End of the interval
+          schema:
+            $ref: '#/components/schemas/DateTimeString'
+        - in: query
+          name: step
+          description: Step between each values in the interval
+          schema:
+            $ref: '#/components/schemas/Step'
+      responses:
+        '200':
+          description: History information
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/HistoryResponse'
+components:
+  schemas:
+    DateTimeString:
+      type: string
+      format: date-time
+      example: '2017-07-21T17:32:28Z'
+    HistoryResponse:
+      type: object
+      properties:
+        time:
+          $ref: '#/components/schemas/DateTimeString'
+        lastPrice:
+          $ref: '#/components/schemas/Price'
+        openPrice:
+          $ref: '#/components/schemas/Price'
+        assetVolume:
+          type: number
+    Price:
+      type: number
+      format: float
+    Step:
+      type: string
+      enum: ['1s', '15s', '1m', '15m', '1h', '4h', '24h']
