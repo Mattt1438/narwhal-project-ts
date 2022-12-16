@@ -3,6 +3,7 @@ import {
   HistoryRepository,
   IHistoryDTO,
 } from '@narwhal-project-ts/database';
+import { NotFoundError } from '../core/error';
 
 export class Service {
   private static readonly repository = new SymbolRepository();
@@ -18,7 +19,7 @@ export class Service {
     const symbol = await this.repository.getByName(symbolName);
 
     if (!symbol) {
-      throw new Error(`Symbol '${symbolName}' not found`);
+      throw new NotFoundError(`Symbol '${symbolName}' not found`);
     }
     return this.historyRepository.find(symbol.id, start, end, step);
   }

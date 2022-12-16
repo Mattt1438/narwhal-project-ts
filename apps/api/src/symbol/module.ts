@@ -1,11 +1,12 @@
-import { Router } from 'express';
-import { IModule } from '../core';
+import { EHttpVerb, IModule, IRoute } from '../core';
 import { Controller } from './controller';
 
 export class Module implements IModule {
-  public readonly path = '/symbol';
-
-  public get router(): Router {
-    return Router().get('/:symbol/history', Controller.getHistory);
-  }
+  public routes: IRoute[] = [
+    {
+      verb: EHttpVerb.GET,
+      path: '/symbol/:symbol/history',
+      handler: Controller.getHistory,
+    },
+  ];
 }

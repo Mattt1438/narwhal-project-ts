@@ -1,6 +1,16 @@
-import { IRouter } from 'express';
+import { Request, Response } from 'express';
 
-export interface IModule {
+export enum EHttpVerb {
+  GET = 'get',
+  POST = 'post',
+  PUT = 'put',
+  DELETE = 'delete',
+}
+export interface IRoute {
+  verb: EHttpVerb;
   path: string;
-  router: IRouter;
+  handler: (req: Request, res: Response) => Promise<void>;
+}
+export interface IModule {
+  routes: IRoute[];
 }

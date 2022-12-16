@@ -1,2 +1,2 @@
 export { Application } from './application';
-export { IModule } from './module';
+export { IModule, IRoute, EHttpVerb } from './module';

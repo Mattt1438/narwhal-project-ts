@@ -1,5 +1,4 @@
 import { Application } from './core';
-import { Logger } from '@narwhal-project-ts/logger';
 
 const app = new Application();
 
@@ -9,10 +8,10 @@ process.on('SIGINT', async () => {
   process.exit();
 });
 
-process.on('uncaughtException', (err) => {
-  Logger.error('Uncaught exception:', err);
-  process.exit(-1);
-});
+// process.on('uncaughtException', (err) => {
+// Logger.error('Uncaught exception:', err);
+// process.exit(-1);/
+// });
 
 (async () => {
   await app.init();
