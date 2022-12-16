@@ -1,8 +1,8 @@
-import { AbstractRepository } from '../abstractRepository';
 import { Client } from '../client';
+import { CompressedRepository } from '../compressedRepository';
 import { IDto } from './definition';
 
-export class Repository extends AbstractRepository<IDto> {
+export class Repository extends CompressedRepository<IDto> {
   protected mapping: { [key in keyof IDto]: string } = {
     time: 'time',
     symbolId: 'symbol_id',
